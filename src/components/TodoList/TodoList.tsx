@@ -14,43 +14,45 @@ import { getAllTodo } from '../../api/apiTodo';
 
 
 interface TodoListProps {
- 
+  refresh: boolean
 }
 
 
-const TodoList : FC<TodoListProps> = () =>{
-  const [todos , setTodos] = useState <Todo[]>([])
+const TodoList: FC<TodoListProps> = ({ refresh }) => {
+  const [todos, setTodos] = useState<Todo[]>([])
 
 
 
 
 
-    useEffect(() => {
-      window.scrollTo(0,0)
-      const runLocalData = async () => {
-        const data : any = await getAllTodo()
-        console.log(data.results);
-        
-        setTodos(data.results)
-        
-        
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    const runLocalData = async () => {
 
-      }
-      runLocalData()
-    })
+
+      const data: any = await getAllTodo()
+      console.log(data.result);
+
+      setTodos(data.result)
+
+
+
+    }
+    runLocalData()
+  }, [refresh])
 
   return (
-      <div className="TodoList">
-          <ul id="todoList">
-            {
-              todos?.map((todo:Todo)=>{
-                return <TodoItem key={todo._id} todoItem={todo} />
-              })
-            }
-            
+    <div className="TodoList">
+      <ul id="todoList">
+        {
+          todos?.map((todo: Todo) => {
+            return <TodoItem key={todo._id} todoItem={todo} />
+          })
+        }
 
-            </ul>
-      </div>
+
+      </ul>
+    </div>
   );
 }
 

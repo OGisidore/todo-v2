@@ -7,10 +7,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import './TodoItem.css';
 import { Todo } from '../../models/Todo';
+import { deleteTodo, updateTodo } from '../../api/apiTodo';
 
 
 interface TodoItemProps {
   todoItem: Todo
+
+
 
 }
 
@@ -18,18 +21,28 @@ interface TodoItemProps {
 const TodoItem: FC<TodoItemProps> = ({ todoItem }) => {
 
   const [isUpdating, setIsUpdating] = useState<boolean>(false)
+  const [value, setValue] = useState<string>('')
 
 
 
   useEffect(() => {
     window.scrollTo(0, 0)
     const runLocalData = async () => {
-      setIsUpdating(true)
+
 
     }
     runLocalData()
-  })
-
+  }, [value])
+  const handleUpdate = async () => {
+    const newTodoItem = {
+      ...todoItem, name: value, updatedAt: new Date()
+    }
+    await updateTodo(newTodoItem)
+    setIsUpdating(false)
+  }
+  const handleDelete = async () => {
+    await deleteTodo(todoItem._id)
+  }
   return (
     <div className="TodoItem">
       <li>
@@ -37,13 +50,13 @@ const TodoItem: FC<TodoItemProps> = ({ todoItem }) => {
           !isUpdating ?
             <>
               <span>{todoItem.name}</span>
-              <button className="btn btn-primary">Update</button>
+              <button onClick={() => setIsUpdating(true)} className="btn btn-primary">Update</button>
             </>
             :
-            <> <input type="text" name='todo' className='form-control' />
-              <button className="btn btn-success">Save</button></>
+            <> <input onChange={(e) => setValue(e.target.value)} type="text" name='todo' className='form-control' />
+              <button onClick={handleUpdate} className="btn btn-success">Save</button></>
         }
-        <button className="btn btn-danger">Delete</button>
+        <button onClick={handleDelete} className="btn btn-danger">Delete</button>
       </li>
     </div>
   );

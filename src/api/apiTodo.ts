@@ -50,7 +50,7 @@ export const updateTodo = async (todo: Todo) => {
 /************************** fonction de recuperation  d'une todo ****************** */
 
 
-export const getTodo = async (_id: number) => {
+export const getTodo = async (_id: string) => {
     try {
         const todo = await db.getData("todos", _id)
         return {
@@ -73,8 +73,12 @@ export const getTodo = async (_id: number) => {
 /************************** fonction de recuperation  de toutes les todos ****************** */
 
 export const getAllTodo = async () => {
+    console.log("hi");
+    
     try {
         const todos = await db.getAllData("todos")
+        console.log(todos);
+        
         return {
             isSuccess: true,
             result: todos,
@@ -95,7 +99,7 @@ export const getAllTodo = async () => {
 /************************** fonction de suppression  d'une todo ****************** */
 
 
-export const deleteTodo = async (_id: number) => {
+export const deleteTodo = async (_id: string) => {
     try {
         await db.deleteData("todos", _id)
         return {

@@ -22,28 +22,49 @@ const Home: FC<HomeProps> = () => {
 
 
   const [todo, setTodo] = useState<string>("")
- 
+  const [reload, setReload] = useState<boolean>(false)
+
+
+
+
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    if (todo) {
+      const data: Todo = {
+        _id: generateID(),
+        name: todo,
+        isUpdating: false,
+        createdAt: new Date()
+
+      }
+      await addTodo(data)
+     
+      setReload(true)
+
+
+    }
+
+
+  }
+
+  const handleChange = (e: any) => {
+    let todoName = e.target.value.trim()
+    setTodo(todoName)
+
+  }
+
+
 
   useEffect(() => {
     window.scrollTo(0, 0)
     const runLocalData = async () => {
-      console.log(todo);
-      
+
+
 
     }
     runLocalData()
   }, [])
-  const handleSubmit = async (e : any)=>{
-    e.preventDefault()
-    const data: Todo = {
-      _id:generateID(),
-      name : todo,
-      isUpdating : false,
-      createdAt : new Date()
-
-    }
-    await addTodo(data)
-  }
 
   return (
     <Fragment>
@@ -53,12 +74,15 @@ const Home: FC<HomeProps> = () => {
           <div className="container">
             <h1>Todo List Project</h1>
             <form id="todoForm"
-            onSubmit={(e)=>handleSubmit(e)} >
+              onSubmit={(e) => handleSubmit(e)} >
               <input
-              onChange={(e)=>setTodo(e.target.value)} type="text" name="todo" placeholder="Enter todo ..." id="todo" />
-              <button className="btn btn-success" onClick={(e)=>handleSubmit(e)}>Add Todo</button>
+
+                onChange={(e) => handleChange(e)}
+               
+                type="text" name="todo" placeholder="Enter todo ..." id="todo" />
+              <button className="btn btn-success" onClick={(e) => handleSubmit(e)}>Add Todo</button>
             </form>
-           <TodoList/>
+            <TodoList refresh={reload} />
           </div>
 
 
