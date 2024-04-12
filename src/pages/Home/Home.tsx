@@ -1,11 +1,5 @@
-/*
-  Author : Mudey Formation
-  Website : https://mudey.fr/
-  App Name : E-commerce with React.Js
-  Created At : 11/04/2024 10:33:48
-*/
+
 import React, { FC, useEffect, Fragment, useState, } from 'react';
-// import Loading from '../Loading/Loading';
 import './Home.css';
 import TodoList from '../../components/TodoList/TodoList';
 import { generateID } from '../../Helpers/utiles';
@@ -26,28 +20,25 @@ const Home: FC<HomeProps> = () => {
 
 
 
-
+// function qui gere l'ajout de todo 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    //verifions si il y a quelque chose dans todo et gerer ensuite l'ajout
     if (todo) {
       const data: Todo = {
         _id: generateID(),
         name: todo,
         isUpdating: false,
         createdAt: new Date()
-
       }
       await addTodo(data)
-     
+      
       setReload(true)
-
-
     }
-
-
   }
 
+  // stockage of the input set value on todo
   const handleChange = (e: any) => {
     let todoName = e.target.value.trim()
     setTodo(todoName)
@@ -59,12 +50,11 @@ const Home: FC<HomeProps> = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     const runLocalData = async () => {
-
-
-
+      setReload(false)
+      
     }
     runLocalData()
-  }, [])
+  }, [reload ,todo])
 
   return (
     <Fragment>
@@ -76,10 +66,11 @@ const Home: FC<HomeProps> = () => {
             <form id="todoForm"
               onSubmit={(e) => handleSubmit(e)} >
               <input
-
+              defaultValue={todo}
                 onChange={(e) => handleChange(e)}
-               
-                type="text" name="todo" placeholder="Enter todo ..." id="todo" />
+                type="text" name="todo"
+                 placeholder="Enter todo ..." id="todo" />
+
               <button className="btn btn-success" onClick={(e) => handleSubmit(e)}>Add Todo</button>
             </form>
             <TodoList refresh={reload} />

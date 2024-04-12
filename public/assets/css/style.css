@@ -23,18 +23,18 @@ button, .btn{
     box-shadow: 5px 5px 12px rgb(104, 104, 104);
 }
 .container form{
-    display: flex;
-    gap: 10px;
+    display: flex !important;
+    gap: 10px !important;
     
     
     
 }
 .container form > input{
-    flex: 1;
-    height: 30px;
-    font-size: 1.2rem;
-    outline: none;
-    border: 1px solid #ccc;
+    flex: 1 !important;
+    height: 30px !important;
+    font-size: 1.2rem !important;
+    outline: none !important;
+    border: 1px solid #ccc !important;
 }
 .container ul{
     list-style: none;
