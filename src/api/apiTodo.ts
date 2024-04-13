@@ -81,11 +81,11 @@ export const getAllTodo = async () => {
     
     try {
         const todos = await db.getAllData("todos")
-        console.log(todos);
+        // console.log(todos);
         
         return {
             isSuccess: true,
-            result: todos,
+            results: todos,
         }
 
 

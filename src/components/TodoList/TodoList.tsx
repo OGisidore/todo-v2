@@ -15,6 +15,7 @@ interface TodoListProps {
 const TodoList: FC<TodoListProps> = () => {
   const todos = useSelector(getTodos)
 
+  console.log(todos);
   
 
   return (

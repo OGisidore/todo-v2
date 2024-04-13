@@ -4,6 +4,7 @@ import './TodoItem.css';
 import { Todo } from '../../models/Todo';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_STORAGE, REMOVE_FROM_STORAGE } from '../../redux/actions/actionTypes';
+import { deleteTodo, updateTodo } from '../../api/apiTodo';
 
 
 interface TodoItemProps {
@@ -33,6 +34,7 @@ const dispatch = useDispatch()
       key : "todos",
       payload : newTodoItem
     })
+    updateTodo(newTodoItem)
     
     setIsUpdating(false)
 
@@ -45,7 +47,7 @@ const dispatch = useDispatch()
       key : "todos",
       payload : todo
     })
-    
+    deleteTodo(todo?._id!)
    
   }
   return (

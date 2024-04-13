@@ -1,8 +1,8 @@
 
 export interface Todo {
-    _id: string,
+    _id?: string,
     name: string,
     updatedAt?: Date,
-    isUpdating: false,
+    isUpdating?: false,
     createdAt?:  Date
 }
