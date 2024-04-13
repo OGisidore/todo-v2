@@ -7,11 +7,11 @@ import { getAllTodo } from '../../api/apiTodo';
 
 
 interface TodoListProps {
-  refresh: boolean
+  
 }
 
 
-const TodoList: FC<TodoListProps> = ({ refresh }) => {
+const TodoList: FC<TodoListProps> = ({  }) => {
 
 
   const [todos, setTodos] = useState<Todo[]>([])
@@ -24,7 +24,7 @@ const TodoList: FC<TodoListProps> = ({ refresh }) => {
       setTodos(data.result)
     }
     runLocalData()
-  }, [refresh])
+  }, [])
 
 
 // function to refresh the content

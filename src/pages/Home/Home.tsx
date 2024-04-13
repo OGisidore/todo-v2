@@ -1,5 +1,5 @@
 
-import React, { FC, useEffect, Fragment, useState, } from 'react';
+import React, { FC, useState, } from 'react';
 import './Home.css';
 import TodoList from '../../components/TodoList/TodoList';
 import { generateID } from '../../Helpers/utiles';
@@ -16,11 +16,10 @@ const Home: FC<HomeProps> = () => {
 
 
   const [todo, setTodo] = useState<string>("")
-  const [reload, setReload] = useState<boolean>(false)
 
 
 
-// function qui gere l'ajout de todo 
+  // function qui gere l'ajout de todo 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -33,8 +32,8 @@ const Home: FC<HomeProps> = () => {
         createdAt: new Date()
       }
       await addTodo(data)
-      
-      setReload(true)
+      e.target.reset()
+      setTodo("")
     }
   }
 
@@ -47,40 +46,29 @@ const Home: FC<HomeProps> = () => {
 
 
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    const runLocalData = async () => {
-      setReload(false)
-      
-    }
-    runLocalData()
-  }, [reload ,todo])
+
 
   return (
-    <Fragment>
-      {
+    <div className="Home ">
+      <div className="container">
+        <h1>Todo List Project</h1>
+        <form id="todoForm"
+          onSubmit={(e) => handleSubmit(e)} >
+          <input
+            defaultValue={todo}
+            onChange={(e) => handleChange(e)}
+            type="text" name="todo"
+            placeholder="Enter todo ..." id="todo" />
 
-        <div className="Home ">
-          <div className="container">
-            <h1>Todo List Project</h1>
-            <form id="todoForm"
-              onSubmit={(e) => handleSubmit(e)} >
-              <input
-              defaultValue={todo}
-                onChange={(e) => handleChange(e)}
-                type="text" name="todo"
-                 placeholder="Enter todo ..." id="todo" />
-
-              <button className="btn btn-success" onClick={(e) => handleSubmit(e)}>Add Todo</button>
-            </form>
-            <TodoList refresh={reload} />
-          </div>
+          <button className="btn btn-success">Add Todo</button>
+        </form>
+        <TodoList  />
+      </div>
 
 
 
-        </div>
-      }
-    </Fragment>
+    </div>
+
   );
 }
 
