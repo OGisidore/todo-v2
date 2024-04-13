@@ -4,7 +4,7 @@ import { storageReducers } from './redux/reducers/localStorageReducer'
 
 /* Create root reducer, containing all features of the application */
 const rootReducer = combineReducers({
-  Storage: storageReducers,
+  storage: storageReducers,
 })
 
 const store = createStore(

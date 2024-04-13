@@ -5,8 +5,12 @@ import { db } from "./database";
 
 /************************** fonction d'ajout de todo ****************** */
 export const addTodo = async (todo: Todo) => {
+    console.log("we are");
+    
     try {
         await db.addData("todos", todo)
+        console.log("we are");
+
         return {
             isSuccess: true,
             message: "todo added succesfully"

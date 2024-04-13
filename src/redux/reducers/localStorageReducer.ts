@@ -5,28 +5,35 @@ import { StorageAction } from "../actions/types";
 
 const storage = getItem("storage")
 const initState: any = storage ? storage : {
-    
 };
-
-  
- 
 export const storageReducers = (state = initState,
     action: StorageAction = { type: null, key: null, payload: null }) => {
     switch (action.type) {
         case ADD_TO_STORAGE:
             if (action.key) {
-               
-                    if (!state[action.key]) {
-                        state[action.key] = []
 
-                    }
-                    const existing = state[action.key]
-                        .find((exist: any) => exist._id === action.payload?._id)
-                    if (!existing) {
-                        state[action.key].push(action.payload)
+                if (!state[action.key]) {
+                    state[action.key] = []
+
+                }
+                console.log(state[action.key]);
+
+                var existing = state[action.key]
+                    .find((exist: any) => exist._id === action.payload?._id)
+                if (!existing) {
+                    state[action.key].push(action.payload)
 
 
-                    }
+                } else {
+                   
+                    existing.name = action.payload?.name
+                    existing.updatedAt = action.payload?.updatedAt
+
+
+
+
+
+                }
 
 
 
@@ -37,8 +44,8 @@ export const storageReducers = (state = initState,
             break;
         case REMOVE_FROM_STORAGE:
             if (action.key) {
-                
-                     if (state[action.key]) {
+
+                if (state[action.key]) {
                     // state[action.key] = []
                     const index = state[action.key]
                         .findIndex((exist: any) => exist._id === action.payload?._id)
@@ -50,9 +57,9 @@ export const storageReducers = (state = initState,
                     }
 
                 }
-           
-                }
-               
+
+            }
+
             setItem("storage", state)
             return { ...state }
             break;

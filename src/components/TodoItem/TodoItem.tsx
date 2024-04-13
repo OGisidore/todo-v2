@@ -2,43 +2,51 @@
 import React, { FC, useState } from 'react';
 import './TodoItem.css';
 import { Todo } from '../../models/Todo';
-import { deleteTodo, updateTodo } from '../../api/apiTodo';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_STORAGE, REMOVE_FROM_STORAGE } from '../../redux/actions/actionTypes';
 
 
 interface TodoItemProps {
-  todoItem: Todo
-  ondisplay:()=> void
-
-
-
+  todo: Todo
 }
 
 
-const TodoItem: FC<TodoItemProps> = ({ todoItem, ondisplay }) => {
+const TodoItem: FC<TodoItemProps> = ({ todo }) => {
 
   const [isUpdating, setIsUpdating] = useState<boolean>(false)
   const [value, setValue] = useState<string>('')
 
 
-
+const dispatch = useDispatch()
 // update function
   const handleUpdate = async () => {
+    console.log(value);
+    
     if (!value.trim()) {
-      alert('Please enter a valid todo name.');
       return;
     }
     const newTodoItem = {
-      ...todoItem, name: value, updatedAt: new Date()
+      ...todo, name: value, updatedAt: new Date()
     }
-    await updateTodo(newTodoItem)
+    dispatch({
+      type:ADD_TO_STORAGE,
+      key : "todos",
+      payload : newTodoItem
+    })
+    
     setIsUpdating(false)
-    ondisplay()
+
   }
 
 // deleted function 
   const handleDelete = async () => {
-    await deleteTodo(todoItem._id)
-    ondisplay()
+    dispatch({
+      type:REMOVE_FROM_STORAGE,
+      key : "todos",
+      payload : todo
+    })
+    
+   
   }
   return (
     <div className="TodoItem">
@@ -48,11 +56,11 @@ const TodoItem: FC<TodoItemProps> = ({ todoItem, ondisplay }) => {
         {
           !isUpdating ?
             <>
-              <span>{todoItem.name}</span>
+              <span>{todo.name}</span>
               <button onClick={() => setIsUpdating(true)} className="btn btn-primary">Update</button>
             </>
             :
-            <> <input defaultValue={todoItem.name} onChange={(e) => setValue(e.target.value)} type="text" name='todo' className='form-control' />
+            <> <input defaultValue={todo.name} onChange={(e) => setValue(e.target.value)} type="text" name='todo' className='form-control' />
               <button onClick={handleUpdate} className="btn btn-success">Save</button></>
         }
         <button onClick={handleDelete} className="btn btn-danger">Delete</button>

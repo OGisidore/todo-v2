@@ -3,8 +3,8 @@ import React, { FC, useState, } from 'react';
 import './Home.css';
 import TodoList from '../../components/TodoList/TodoList';
 import { generateID } from '../../Helpers/utiles';
-import { addTodo } from '../../api/apiTodo';
-import { Todo } from '../../models/Todo';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_STORAGE } from '../../redux/actions/actionTypes';
 
 
 interface HomeProps {
@@ -16,22 +16,26 @@ const Home: FC<HomeProps> = () => {
 
 
   const [todo, setTodo] = useState<string>("")
-
-
+ const dispatch = useDispatch()
 
   // function qui gere l'ajout de todo 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     //verifions si il y a quelque chose dans todo et gerer ensuite l'ajout
+
     if (todo) {
-      const data: Todo = {
-        _id: generateID(),
-        name: todo,
-        isUpdating: false,
-        createdAt: new Date()
-      }
-      await addTodo(data)
+      dispatch({
+        type: ADD_TO_STORAGE,
+        key : "todos",
+        payload :{
+          _id: generateID(),
+          name: todo,
+          isUpdating: false,
+          createdAt: new Date()
+
+        }
+      })
       e.target.reset()
       setTodo("")
     }

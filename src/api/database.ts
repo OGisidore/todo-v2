@@ -11,4 +11,4 @@ const dataStructure: any = [
       ],
     }
   ];
- export const db = new EsperoDB('todolist', dataStructure, 2);
+ export const db = new EsperoDB('todolist', dataStructure, 3);

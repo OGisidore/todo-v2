@@ -39,3 +39,10 @@ if (window.localStorage) {
 
 
 }
+
+// export const updateItem = (key:string, item : any)=>{
+//     if (window.localStorage) {
+//         window.localStorage
+        
+//     }
+// }
