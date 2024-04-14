@@ -32,6 +32,7 @@ const Home: FC<HomeProps> = () => {
  }
 
  useEffect(()=>{
+  
   loadLocalData()
  }, [])
 
