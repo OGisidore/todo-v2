@@ -22,7 +22,7 @@ Bienvenue dans le projet Todo Liste Limité ! Cette application vous permet de g
 
 ## Installation et Configuration
 
-1. **Clonez le Répertoire:** `git clone https://github.com/votre-utilisateur/todo-liste-limite.git`
+1. **Clonez le Répertoire:** `git clone https://github.com/OGisidore/todo-v2.git`
 2. **Installez les Dépendances:** `npm install`
 3. **Lancez l'Application:** `npm start`
 
@@ -42,7 +42,7 @@ Ce projet a été développé avec l'objectif de fournir une solution simple pou
 
 ## Besoin d'Aide?
 
-Si vous rencontrez des problèmes ou avez des questions, n'hésitez pas à ouvrir une issue sur le dépôt GitHub du projet ou à nous contacter directement à [votre@email.com].
+Si vous rencontrez des problèmes ou avez des questions, n'hésitez pas à ouvrir une issue sur le dépôt GitHub du projet ou à nous contacter directement à [isidoreogoulodo43@email.com].
 
 ---
 
